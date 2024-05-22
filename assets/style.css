@@ -46,6 +46,14 @@ body{
     font-size: 18px;
 }
 
+.nav-link:hover{
+    font-weight: 700;
+}
+
+.active{
+    font-weight: 700;
+}
+
 @media (max-width: 425px) { 
     body{
         margin: 0;
