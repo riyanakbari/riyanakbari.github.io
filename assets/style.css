@@ -35,3 +35,8 @@ body{
     max-width: 65%;
     margin: 2rem 0;
 }
+
+.general-text{
+    font-size: 18px;
+    margin: 2rem 0;
+}
