@@ -41,3 +41,31 @@ body{
     margin: 2rem 0;
     width: 85%;
 }
+
+.nav-link{
+    font-size: 18px;
+}
+
+@media (max-width: 425px) { 
+    body{
+        margin: 0;
+    }
+    .heading-greeting{
+        font-size: 22px;
+        margin-bottom: 0;
+    }
+
+    .heading-name{
+        font-size: 40px;
+        line-height: 55px;
+    }
+
+    .heading-skill{
+        font-size: 18px;
+        margin: 0.5rem 0;
+    }
+
+    .heading-text{
+        font-size: 16px;
+    }
+}

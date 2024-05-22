@@ -19,34 +19,49 @@
                  <a class="navbar-brand" href="/">
                     <img src="assets/img/R.png" class="h-4 me-3 mx-sm-2" alt="...">
                  </a>
-                 <!-- Button -->
-                 <div class="ms-auto d-flex justify-content-center">
-                    <a class="btn btn-dark rounded-pill py-2 px-4" href="mailto: rynakbri@email.com" role="button" style="font-size: 18px; font-weight: 700;">Contact</a>
-                 </div>
+                 <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse justify-content-end text-center collapse" id="navbarNavDropdown" style="">
+                    <ul class="navbar-nav gap-3">
+                        <li class="nav-item">
+                            <a class="nav-link justify-content-center" aria-current="page" href="#home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link justify-content-center" href="#about">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link justify-content-center" href="#porto">Portofolio</a>
+                        </li>
+                        <li>
+                            <a class="btn btn-dark rounded-pill py-2 px-4" href="mailto: rynakbri@email.com" role="button" style="font-size: 18px; font-weight: 700;">Contact</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
         <!-- End Navbar -->
         
-        <section class="py-5 my-5">
-            <div class="container">
-              <div class="row align-items-center mx-5">
+        <section id="home" class="my-4">
+            <div class="container px-4">
+              <div class="row align-items-center mx-lg-4 mx-md-3">
                 <div class="col-12 col-md-7">
                     <p class="heading-greeting">Hello, I'm</p>
                     <h1 class="heading-name ">Riyan Akbari</h1>
                     <p class="heading-skill">Graphic & UI/UX Designer</p>
                     <p class="heading-text">I'm an enthusiast of UI/UX and graphic design, dedicated to crafting engaging and intuitive digital experiences.</p>
-                    <a class="btn btn-outline-dark rounded-pill btn-contact py-2 px-4 d-none d-sm-none d-md-none d-lg-inline" href="#" role="button" style="font-size: 18px;">Portofolio</a>
+                    <a class="btn btn-outline-dark rounded-pill btn-contact py-2 px-4 d-none d-sm-none d-md-none d-lg-inline" href="#porto" role="button" style="font-size: 18px;">Portofolio</a>
                 </div>
                 <div class="col-12 col-md-5">
-                    <img class="img-fluid d-none d-sm-none d-md-none d-lg-inline" src="assets/img/riyan.png" alt="Hero Image">
+                    <img class="img-fluid" src="assets/img/riyan.png" alt="Hero Image">
                 </div>
               </div>
             </div>
         </section>
 
-        <section class="py-5 my-5" style="background: black;">
-            <div class="container">
-                <div class="row mx-5 mb-4">
+        <section id="about" class="about pb-3 my-5" style="background: black;">
+            <div class="container px-4">
+                <div class="row mx-lg-4 mx-md-3 mb-4">
                     <h1 class="fw-bold text-light mt-5" style="font-size: 40px;">About Me</h1>
                     <div class="col-12 col-md-7">
                         <p class="general-text text-light">Hi, my name is M. Riyan Akbari, but you can call me Riyan. I am currently pursuing a degree in Informatics at Telkom University Surabaya. I am a passionate UI/UX and graphic designer with a strong foundation in front-end development principles. I am particularly interested in creating user-friendly interfaces that are both visually appealing and technically sound.</p>
@@ -74,13 +89,13 @@
             </div>
         </section>
         
-        <section class="py-5 my-5">
-            <div class="container">
-                <div class="row mx-5">
-                    <h1 class="fw-bold" style="font-size: 40px;">Featured Work</h1>
+        <section id="porto" class="porto my-5">
+            <div class="container px-4">
+                <div class="row mx-lg-4 mx-md-3">
+                    <h1 class="fw-bold mb-5" style="font-size: 40px;">Featured Work</h1>
                 </div>
                 <div class="justify-content-center">
-                    <div class="row mx-5 mt-5">
+                    <div class="row mx-lg-4 mx-md-3">
                         <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
                         <img
                             src="assets/img/black.png"
@@ -161,7 +176,12 @@
             <!-- Copyright -->
           </footer>
         
+        <button type="button" class="btn btn-floating btn-lg" id="btn-back-to-top" style="display: block; background:black;">
+            <i class="ti ti-arrow-up text-white"></i>
+        </button>
+        
         <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/icons-react/dist/index.umd.min.js"></script>
+        <script src="assets/script.js"></script>
     </body>
 </html>
