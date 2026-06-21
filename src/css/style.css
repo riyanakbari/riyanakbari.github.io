@@ -1,0 +1,291 @@
+@import "tailwindcss";
+
+/* Glassmorphism Styles */
+.glass-nav {
+  background: rgba(15, 15, 15, 0.6);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+.glass-logo {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+}
+
+.glass-button {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-button:hover {
+  background: rgba(255, 255, 255, 1);
+  color: #000000;
+  border-color: rgba(255, 255, 255, 1);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+/* Solid White Name styling for Hero */
+.text-outline-name {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 30vw;
+  font-weight: 900;
+  line-height: 0.90;
+  letter-spacing: 0.05em;
+  text-indent: 0.05em;
+  /* Offset the letter-spacing on the last letter for perfect centering */
+  text-transform: uppercase;
+  color: #ffffff;
+  user-select: none;
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Base resets & Custom behaviors */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #000000;
+}
+
+/* Subtle background grid pattern for depth */
+.bg-grid {
+  background-size: 50px 50px;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+}
+
+/* Custom Cursor Dot & Ring */
+.cursor-dot,
+.cursor-ring {
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cursor-dot {
+    display: block;
+    width: 6px;
+    height: 6px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    position: fixed;
+    left: -100px;
+    /* Initially offscreen */
+    top: -100px;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .cursor-ring {
+    display: block;
+    width: 26px;
+    height: 26px;
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+    position: fixed;
+    left: -100px;
+    /* Initially offscreen */
+    top: -100px;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease, width 0.2s ease, height 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .cursor-ring.hovered {
+    width: 42px;
+    height: 42px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+/* Glassmorphic Badge & Button */
+.glass-badge {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  user-select: none;
+
+  /* Default Mobile Sizes */
+  padding: 0.5rem 1rem;
+  gap: 0.625rem;
+}
+
+.glass-badge:hover {
+  border-color: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Children Sizing Classes */
+.glass-badge .badge-text {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.glass-badge .badge-dot-container {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.glass-badge .badge-pulse-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: #ffffff;
+  box-shadow: 0 0 8px #ffffff;
+}
+
+.glass-badge .badge-arrow-container {
+  width: 1rem;
+  height: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.glass-badge .badge-arrow-container svg {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+/* Tablet (768px and up) */
+@media (min-width: 768px) {
+  .glass-badge {
+    padding: 0.75rem 1.25rem;
+    gap: 0.75rem;
+  }
+
+  .glass-badge .badge-text {
+    font-size: 0.875rem;
+  }
+
+  .glass-badge .badge-dot-container {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .glass-badge .badge-pulse-dot {
+    width: 0.625rem;
+    height: 0.625rem;
+    box-shadow: 0 0 10px #ffffff;
+  }
+
+  .glass-badge .badge-arrow-container {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .glass-badge .badge-arrow-container svg {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+/* Laptop/Desktop (1024px and up) */
+@media (min-width: 1024px) {
+  .glass-badge {
+    padding: 0.875rem 1.5rem;
+    gap: 0.875rem;
+  }
+
+  .glass-badge .badge-text {
+    font-size: 1rem;
+  }
+
+  .glass-badge .badge-dot-container {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  .glass-badge .badge-pulse-dot {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+
+  .glass-badge .badge-arrow-container {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .glass-badge .badge-arrow-container svg {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+}
+
+/* Large Desktop (1440px and up) */
+@media (min-width: 1440px) {
+  .glass-badge {
+    padding: 1rem 1.75rem;
+    gap: 1rem;
+  }
+
+  .glass-badge .badge-text {
+    font-size: 1.125rem;
+  }
+
+  .glass-badge .badge-dot-container {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .glass-badge .badge-pulse-dot {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+
+  .glass-badge .badge-arrow-container {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  .glass-badge .badge-arrow-container svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
+
+/* Smooth Floating Animation for Scroll Down Indicator */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+.animate-float {
+  animation: float 2s ease-in-out infinite;
+}

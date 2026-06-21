@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Riyan | Portfolio</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800;900&family=Plus+Jakarta+Sans:wght@800;900&display=swap"
+    rel="stylesheet">
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="/src/css/style.css" />
+</head>
+
+<body class="bg-black text-white font-sans antialiased overflow-x-hidden">
+  <!-- Custom Cursor Elements -->
+  <div id="custom-cursor-dot" class="cursor-dot"></div>
+  <div id="custom-cursor-ring" class="cursor-ring"></div>
+
+  <!-- Mouse Trail Canvas -->
+  <canvas id="trail-canvas" class="fixed inset-0 pointer-events-none" style="z-index: 1;"></canvas>
+
+  <div class="min-h-screen bg-black text-white relative overflow-hidden flex flex-col justify-between">
+    <!-- Subtle background grid pattern -->
+    <div class="absolute inset-0 bg-grid pointer-events-none" style="z-index: 2;"></div>
+
+    <!-- Glowing Background Orbs for Depth (Dark B&W theme) -->
+    <div
+      class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-white/[0.03] blur-[120px] pointer-events-none animate-pulse-slow">
+    </div>
+    <div
+      class="absolute bottom-10 left-1/3 w-[300px] h-[300px] rounded-full bg-white/[0.01] blur-[80px] pointer-events-none">
+    </div>
+
+    <!-- HEADER & NAVBAR -->
+    <header class="fixed top-0 left-0 w-full py-6 px-6 md:px-12 flex justify-between items-center z-50">
+      <!-- Logo Left -->
+      <a href="#" class="flex items-center gap-2 group">
+        <div
+          class="w-10 h-10 rounded-full flex items-center justify-center glass-logo transition-transform duration-500 group-hover:rotate-180">
+          <!-- SVG Minimalist Concentric Rings Logo (B&W) -->
+          <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2">
+            <circle cx="12" cy="12" r="9" stroke-opacity="0.2" />
+            <circle cx="12" cy="12" r="6" stroke-opacity="0.5" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+        </div>
+      </a>
+
+      <!-- Navigation Pill Center (Glassmorphism) -->
+      <nav class="hidden md:flex items-center gap-1 px-4 py-2 rounded-full glass-nav">
+        <a href="#home"
+          class="px-4 py-1.5 text-sm font-medium text-white hover:text-neutral-400 transition-colors">Home</a>
+        <span class="text-white/10 text-[8px] select-none">•</span>
+        <a href="#about"
+          class="px-4 py-1.5 text-sm font-medium text-neutral-400 hover:text-white transition-colors">About</a>
+        <span class="text-white/10 text-[8px] select-none">•</span>
+        <a href="#process"
+          class="px-4 py-1.5 text-sm font-medium text-neutral-400 hover:text-white transition-colors">Process</a>
+        <span class="text-white/10 text-[8px] select-none">•</span>
+        <a href="#work"
+          class="px-4 py-1.5 text-sm font-medium text-neutral-400 hover:text-white transition-colors">Work</a>
+        <span class="text-white/10 text-[8px] select-none">•</span>
+        <a href="#skills"
+          class="px-4 py-1.5 text-sm font-medium text-neutral-400 hover:text-white transition-colors">Skills</a>
+        <span class="text-white/10 text-[8px] select-none">•</span>
+        <a href="#contact"
+          class="px-4 py-1.5 text-sm font-medium text-neutral-400 hover:text-white transition-colors">Contact</a>
+      </nav>
+
+      <!-- LinkedIn Icon Right -->
+      <div>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"
+          class="w-10 h-10 rounded-full flex items-center justify-center glass-button transition-transform duration-300 hover:scale-105"
+          aria-label="LinkedIn Profile">
+          <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="#ffffff">
+            <path
+              d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+          </svg>
+        </a>
+      </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <main class="relative flex flex-col justify-end items-center overflow-hidden z-10 w-full h-screen px-6 md:px-12">
+
+      <!-- Giant Name Header (Stretching Behind Photo) -->
+      <div
+        class="absolute top-32 md:top-24 left-0 w-full flex items-start justify-center pointer-events-none select-none"
+        style="z-index: 3;">
+        <div class="relative w-full flex justify-center">
+          <h1 class="text-outline-name font-black opacity-90">RIYAN</h1>
+        </div>
+      </div>
+
+      <!-- Centered Cutout Photo (hero.png) overlapping the text -->
+      <div
+        class="hidden lg:flex relative z-10 w-full max-w-lg md:max-w-3xl justify-center items-end h-[75vh] md:h-[90vh] select-none">
+        <img src="/images/hero.png" alt="Riyan Akbari"
+          class="h-full w-auto object-contain filter drop-shadow-[0_20px_50px_rgba(0,0,0,0.9)] transition-transform duration-700 hover:scale-[1.02]" />
+      </div>
+
+      <!-- Hero Content Columns (In Front of Photo) -->
+      <div class="absolute top-32 md:top-24 left-0 w-full flex items-start justify-center pointer-events-none"
+        style="z-index: 20;">
+        <div class="relative w-full flex justify-center">
+          <!-- Invisible placeholder to align columns relative to name height -->
+          <h1 class="text-outline-name font-black opacity-0 invisible pointer-events-none select-none">RIYAN</h1>
+
+          <!-- Left Content Column (Badge & Bio - Anchored below the name box) -->
+          <div
+            class="absolute left-6 md:left-12 bottom-0 translate-y-full mt-4 md:mt-8 flex flex-col items-start gap-16 md:gap-20 pointer-events-auto max-w-[220px] sm:max-w-[280px] md:max-w-[320px] lg:max-w-[260px] xl:max-w-[340px] 2xl:max-w-md">
+            <!-- Badge UI/UX Designer -->
+            <div class="glass-badge select-none group">
+              <!-- Glowing White Dot Indicator -->
+              <div class="badge-dot-container relative">
+                <div class="badge-pulse-dot animate-pulse"></div>
+              </div>
+              <!-- Text -->
+              <span class="badge-text text-neutral-300 group-hover:text-white transition-colors duration-300">UI/UX
+                Designer</span>
+            </div>
+
+            <!-- Bio Description -->
+            <p
+              class="text-xs sm:text-sm lg:text-xs xl:text-sm 2xl:text-base leading-relaxed text-neutral-400 font-sans tracking-wide">
+              UI/UX Designer and Graphic Design Enthusiast <br> passionate about crafting intuitive, engaging, <br> and
+              user-centered digital experiences.</br>
+            </p>
+          </div>
+
+          <!-- Right Content Column (Button See All Project & Floating Arrow - Anchored below the name box) -->
+          <div
+            class="absolute right-6 md:right-12 bottom-0 translate-y-full mt-4 md:mt-8 flex flex-col items-end gap-16 md:gap-32 pointer-events-auto">
+            <a href="#work" class="glass-badge select-none group cursor-pointer" role="button">
+              <!-- Text -->
+              <span class="badge-text text-neutral-300 group-hover:text-white transition-colors duration-300">See All
+                Project</span>
+              <!-- Diagonal Arrow Icon (pointing bottom-left) -->
+              <div class="badge-arrow-container text-neutral-300 group-hover:text-white transition-colors duration-300">
+                <svg class="stroke-[1.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <line x1="17" y1="7" x2="7" y2="17"></line>
+                  <polyline points="17 17 7 17 7 7"></polyline>
+                </svg>
+              </div>
+            </a>
+
+            <!-- Floating Arrow Indicator (Aligned below the button) -->
+            <div class="text-neutral-500 hover:text-white transition-colors duration-300 animate-float pr-1"
+              aria-label="Scroll Down">
+              <svg class="w-6 h-6 stroke-[1.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+          </div>
+        </div>
+    </main>
+
+    <!-- Foot-spacer to keep section well proportioned -->
+    <footer class="py-8 text-center text-xs text-neutral-600 border-white/5 z-10 w-full">
+      <p>© 2026 Riyan Akbari. Built with Vite & Tailwind CSS v4.</p>
+    </footer>
+
+  </div>
+
+  <script type="module" src="/src/js/main.js"></script>
+</body>
+
+</html>
