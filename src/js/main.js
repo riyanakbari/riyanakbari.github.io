@@ -1,4 +1,5 @@
 import '../css/style.css'
+import Lenis from 'lenis'
 
 class MouseTrail {
   constructor() {
@@ -9,10 +10,10 @@ class MouseTrail {
     this.points = [];
     this.mouse = { x: 0, y: 0, active: false };
     this.lastMouse = { x: 0, y: 0 };
-    
+
     // Spotlight variables for a large, soft ambient glow
     this.spotlight = { x: 0, y: 0, active: false, radius: 260 };
-    
+
     this.resizeCanvas();
     this.bindEvents();
     this.animate();
@@ -72,7 +73,7 @@ class MouseTrail {
     const dx = this.mouse.x - this.lastMouse.x;
     const dy = this.mouse.y - this.lastMouse.y;
     const distance = Math.hypot(dx, dy);
-    
+
     // Spawns points close together (every 3px) for absolute continuity
     const step = 3;
     const steps = Math.max(1, Math.floor(distance / step));
@@ -81,7 +82,7 @@ class MouseTrail {
       const t = i / steps;
       const x = this.lastMouse.x + dx * t;
       const y = this.lastMouse.y + dy * t;
-      
+
       this.points.push({
         x: x,
         y: y,
@@ -112,13 +113,13 @@ class MouseTrail {
         this.spotlight.x, this.spotlight.y, 0,
         this.spotlight.x, this.spotlight.y, this.spotlight.radius
       );
-      
+
       // Extremely soft white ambient glow that reveals the white grid lines
       spotlightGlow.addColorStop(0, 'rgba(255, 255, 255, 0.15)');
       spotlightGlow.addColorStop(0.3, 'rgba(255, 255, 255, 0.07)');
       spotlightGlow.addColorStop(0.7, 'rgba(255, 255, 255, 0.02)');
       spotlightGlow.addColorStop(1, 'rgba(255, 255, 255, 0)');
-      
+
       this.ctx.fillStyle = spotlightGlow;
       this.ctx.arc(this.spotlight.x, this.spotlight.y, this.spotlight.radius, 0, Math.PI * 2);
       this.ctx.fill();
@@ -127,7 +128,7 @@ class MouseTrail {
     // 2. Draw the smooth drift-free trail ribbon
     for (let i = this.points.length - 1; i >= 0; i--) {
       const p = this.points[i];
-      
+
       // Fade and shrink in place (no random movement to prevent particle spray look)
       p.alpha -= p.decay;
       p.size -= p.decay * 30; // Shrinks to 0 just as alpha hits 0
@@ -142,7 +143,7 @@ class MouseTrail {
       gradient.addColorStop(0, `rgba(255, 255, 255, ${p.alpha * 0.14})`);
       gradient.addColorStop(0.4, `rgba(255, 255, 255, ${p.alpha * 0.05})`);
       gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-      
+
       this.ctx.fillStyle = gradient;
       this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
       this.ctx.fill();
@@ -215,10 +216,103 @@ class CustomCursor {
   }
 }
 
+class ScrollTextReveal {
+  constructor() {
+    this.el = document.getElementById('about-scroll-text');
+    if (!this.el) return;
+
+    this.chars = [];
+    this.splitText();
+    this.onScroll(); // initial state
+  }
+
+  splitText() {
+    const text = this.el.textContent.trim();
+    this.el.textContent = '';
+
+    const words = text.split(' ');
+
+    words.forEach((word, wordIndex) => {
+      // Wrap each word in a .word span so line breaks happen between words
+      const wordSpan = document.createElement('span');
+      wordSpan.className = 'word';
+
+      for (const char of word) {
+        const charSpan = document.createElement('span');
+        charSpan.className = 'char';
+        charSpan.textContent = char;
+        wordSpan.appendChild(charSpan);
+        this.chars.push(charSpan);
+      }
+
+      this.el.appendChild(wordSpan);
+
+      // Add a plain space text node between words (allows natural line wrapping)
+      if (wordIndex < words.length - 1) {
+        this.el.appendChild(document.createTextNode(' '));
+      }
+    });
+  }
+
+  onScroll() {
+    const section = document.getElementById('about');
+    if (!section) return;
+
+    const rect = section.getBoundingClientRect();
+    const windowH = window.innerHeight;
+
+    // Start reveal when section enters from bottom (60% mark)
+    // Complete reveal when section is slightly past (bottom just leaving top of viewport)
+    const start = rect.top - windowH * 0.60;
+    const end = rect.bottom - windowH * 1;
+    const raw = -start / (end - start);
+    const progress = Math.min(1, Math.max(0, raw));
+
+    const totalChars = this.chars.length;
+    const revealCount = Math.floor(progress * totalChars);
+
+    this.chars.forEach((span, i) => {
+      if (i < revealCount) {
+        span.classList.add('revealed');
+      } else {
+        span.classList.remove('revealed');
+      }
+    });
+  }
+}
+
+class SmoothScroll {
+  constructor(onScrollCb) {
+    this.lenis = new Lenis({
+      lerp: 0.07,
+      smoothTouch: false,
+      touchMultiplier: 1.5,
+    });
+
+    this.onScrollCb = onScrollCb;
+
+    // Fire scroll callback on every Lenis tick
+    this.lenis.on('scroll', () => {
+      if (this.onScrollCb) this.onScrollCb();
+    });
+
+    this.raf(0);
+  }
+
+  raf(time) {
+    this.lenis.raf(time);
+    requestAnimationFrame((t) => this.raf(t));
+  }
+}
+
 // Initialize components on DOM load
 const init = () => {
   new MouseTrail();
   new CustomCursor();
+
+  const textReveal = new ScrollTextReveal();
+  // Pass the text reveal's onScroll so it fires in sync with Lenis ticks
+  new SmoothScroll(() => textReveal.onScroll());
 };
 
 if (document.readyState === 'loading') {
@@ -226,3 +320,4 @@ if (document.readyState === 'loading') {
 } else {
   init();
 }
+
