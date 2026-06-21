@@ -30,7 +30,7 @@
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
 }
 
-/* Solid White Name styling for Hero */
+/* Solid White Name styling for Hero — also used as invisible layout spacer */
 .text-outline-name {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 30vw;
@@ -38,13 +38,49 @@
   line-height: 0.90;
   letter-spacing: 0.05em;
   text-indent: 0.05em;
-  /* Offset the letter-spacing on the last letter for perfect centering */
   text-transform: uppercase;
   color: #ffffff;
   user-select: none;
   width: 100%;
   text-align: center;
   white-space: nowrap;
+}
+
+/* ===========================
+   MARQUEE TICKER
+   =========================== */
+
+.marquee-track {
+  display: flex;
+  flex-direction: row;
+  width: max-content;
+  will-change: transform;
+}
+
+.marquee-item {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.marquee-text {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 30vw;
+  font-weight: 900;
+  line-height: 0.90;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.92);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.marquee-sep {
+  font-size: 6vw;
+  color: rgba(255, 255, 255, 0.18);
+  margin: 0 2vw;
+  line-height: 1;
+  user-select: none;
 }
 
 /* Responsive sizing for tablet (768px–1023px): align with px-12 margin */
@@ -383,7 +419,8 @@ body {
   font-weight: 800;
   line-height: 1.2;
   letter-spacing: -0.02em;
-  color: transparent; /* fallback; JS wraps in spans */
+  color: transparent;
+  /* fallback; JS wraps in spans */
   word-wrap: break-word;
   overflow-wrap: break-word;
 }

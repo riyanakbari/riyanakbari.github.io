@@ -216,6 +216,91 @@ class CustomCursor {
   }
 }
 
+class MarqueeScroll {
+  constructor() {
+    this.track = document.getElementById('marquee-track');
+    if (!this.track) return;
+
+    this.position = 0;
+    this.baseSpeed = 0.5;    // px/frame baseline (slow auto-scroll)
+    this.velocity = 0;        // extra speed added by scroll
+    this.lastScrollY = window.scrollY;
+
+    // Listen to scroll events to boost marquee speed
+    window.addEventListener('scroll', () => {
+      const currentY = window.scrollY;
+      const delta = currentY - this.lastScrollY;
+      this.velocity += delta * 0.4; // how aggressively scroll boosts speed
+      this.lastScrollY = currentY;
+    }, { passive: true });
+
+    this.animate();
+  }
+
+  animate() {
+    // Decay scroll velocity toward 0
+    this.velocity *= 0.6;
+
+    // Advance position
+    this.position += this.baseSpeed + this.velocity;
+
+    // Ensure forward direction only (no reverse on scroll up)
+    if (this.position < 0) this.position = 0;
+
+    // Seamless loop: reset at 1/4 of total (4 identical copies)
+    const loopWidth = this.track.scrollWidth / 2;
+    if (loopWidth > 0 && this.position >= loopWidth) {
+      this.position -= loopWidth;
+    }
+
+    this.track.style.transform = `translateX(-${this.position}px)`;
+    requestAnimationFrame(() => this.animate());
+  }
+}
+
+class NavHighlighter {
+  constructor() {
+    this.links = document.querySelectorAll('.nav-link[data-section]');
+    this.sections = [];
+
+    // Collect only sections that actually exist in the DOM
+    this.links.forEach(link => {
+      const id = link.dataset.section;
+      const el = document.getElementById(id);
+      if (el) this.sections.push({ id, el });
+    });
+
+    if (this.sections.length === 0) return;
+
+    this.setActive('home'); // default
+
+    // Observer: trigger when a section crosses 40% from the top of the viewport
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            this.setActive(entry.target.id);
+          }
+        });
+      },
+      {
+        rootMargin: '-40% 0px -55% 0px', // fires when section hits the middle band of viewport
+        threshold: 0,
+      }
+    );
+
+    this.sections.forEach(({ el }) => observer.observe(el));
+  }
+
+  setActive(id) {
+    this.links.forEach(link => {
+      const isActive = link.dataset.section === id;
+      link.classList.toggle('text-white', isActive);
+      link.classList.toggle('text-neutral-400', !isActive);
+    });
+  }
+}
+
 class ScrollTextReveal {
   constructor() {
     this.el = document.getElementById('about-scroll-text');
@@ -284,7 +369,7 @@ class ScrollTextReveal {
 class SmoothScroll {
   constructor(onScrollCb) {
     this.lenis = new Lenis({
-      lerp: 0.07,
+      lerp: 0.12,
       smoothTouch: false,
       touchMultiplier: 1.5,
     });
@@ -309,9 +394,10 @@ class SmoothScroll {
 const init = () => {
   new MouseTrail();
   new CustomCursor();
+  new MarqueeScroll();
+  new NavHighlighter();
 
   const textReveal = new ScrollTextReveal();
-  // Pass the text reveal's onScroll so it fires in sync with Lenis ticks
   new SmoothScroll(() => textReveal.onScroll());
 };
 
