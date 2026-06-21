@@ -47,6 +47,20 @@
   white-space: nowrap;
 }
 
+/* Responsive sizing for tablet (768px–1023px): align with px-12 margin */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .text-outline-name {
+    font-size: calc((100vw - 96px) / 3.1);
+  }
+}
+
+/* Responsive sizing for mobile (<768px): align with px-6 margin */
+@media (max-width: 767px) {
+  .text-outline-name {
+    font-size: calc((100vw - 48px) / 3.1);
+  }
+}
+
 /* Base resets & Custom behaviors */
 html {
   scroll-behavior: smooth;
