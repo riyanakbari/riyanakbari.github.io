@@ -221,6 +221,8 @@ class MarqueeScroll {
     this.track = document.getElementById('marquee-track');
     if (!this.track) return;
 
+    this.splitText();
+
     this.position = 0;
     this.baseSpeed = 0.5;    // px/frame baseline (slow auto-scroll)
     this.velocity = 0;        // extra speed added by scroll
@@ -235,6 +237,29 @@ class MarqueeScroll {
     }, { passive: true });
 
     this.animate();
+  }
+
+  splitText() {
+    const textElements = this.track.querySelectorAll('.marquee-text');
+    textElements.forEach((el) => {
+      const text = el.textContent;
+      el.textContent = '';
+      let charIndex = 0;
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const span = document.createElement('span');
+        if (char === ' ') {
+          span.innerHTML = '&nbsp;';
+          span.className = 'marquee-space';
+        } else {
+          span.textContent = char;
+          span.className = 'marquee-char';
+          span.style.animationDelay = `${charIndex * 0.08}s`;
+          charIndex++;
+        }
+        el.appendChild(span);
+      }
+    });
   }
 
   animate() {
@@ -315,7 +340,7 @@ class ScrollTextReveal {
     const text = this.el.textContent.trim();
     this.el.textContent = '';
 
-    const words = text.split(' ');
+    const words = text.split(/\s+/);
 
     words.forEach((word, wordIndex) => {
       // Wrap each word in a .word span so line breaks happen between words
@@ -390,12 +415,52 @@ class SmoothScroll {
   }
 }
 
+class AOSManager {
+  constructor() {
+    this.elements = document.querySelectorAll('.aos-init');
+    if (this.elements.length === 0) return;
+
+    this.init();
+  }
+
+  init() {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const delay = el.dataset.aosDelay;
+            const duration = el.dataset.aosDuration;
+
+            if (delay) {
+              el.style.transitionDelay = `${delay}ms`;
+            }
+            if (duration) {
+              el.style.transitionDuration = `${duration}ms`;
+            }
+
+            el.classList.add('aos-animate');
+            observer.unobserve(el);
+          }
+        });
+      },
+      {
+        threshold: 0.05,
+        rootMargin: '0px 0px -10% 0px',
+      }
+    );
+
+    this.elements.forEach((el) => observer.observe(el));
+  }
+}
+
 // Initialize components on DOM load
 const init = () => {
   new MouseTrail();
   new CustomCursor();
   new MarqueeScroll();
   new NavHighlighter();
+  new AOSManager();
 
   const textReveal = new ScrollTextReveal();
   new SmoothScroll(() => textReveal.onScroll());

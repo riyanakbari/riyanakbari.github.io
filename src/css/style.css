@@ -346,24 +346,31 @@ body {
 
 .about-section {
   position: relative;
-  min-height: 100vh;
+  min-height: auto;
   display: flex;
   align-items: center;
-  padding: 120px 24px 120px 24px;
+  padding: 80px 32px 40px 32px;
   background: #000;
   overflow-x: hidden;
 }
 
 @media (min-width: 768px) {
   .about-section {
-    padding: 140px 48px 140px 48px;
+    padding: 100px 64px 60px 64px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .about-section {
+    min-height: auto;
+    padding: 180px 80px 100px 80px;
   }
 }
 
 /* Decorative vertical left marker */
 .about-marker {
   position: absolute;
-  left: 24px;
+  left: 12px;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
@@ -375,7 +382,13 @@ body {
 
 @media (min-width: 768px) {
   .about-marker {
-    left: 48px;
+    left: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .about-marker {
+    left: 32px;
   }
 }
 
@@ -397,17 +410,19 @@ body {
 /* Main content */
 .about-content {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1300px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 64px;
-  padding-left: 32px;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 @media (min-width: 768px) {
   .about-content {
-    padding-left: 48px;
+    padding-left: 0;
+    padding-right: 0;
     gap: 80px;
   }
 }
@@ -514,4 +529,315 @@ body {
   .about-right-label {
     right: -20px;
   }
+}
+
+/* ===========================
+   SMOOTH CUSTOM AOS & STAGGER
+   =========================== */
+
+/* Base classes */
+.aos-init {
+  opacity: 0;
+  transition-property: opacity, transform, filter;
+  transition-duration: 1.2s;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+
+/* Animating states initial offsets */
+.aos-init[data-aos="fade-up"] {
+  transform: translateY(40px);
+}
+
+.aos-init[data-aos="fade-down"] {
+  transform: translateY(-40px);
+}
+
+.aos-init[data-aos="fade-left"] {
+  transform: translateX(40px);
+}
+
+.aos-init[data-aos="fade-right"] {
+  transform: translateX(-40px);
+}
+
+.aos-init[data-aos="zoom-in"] {
+  transform: scale(0.93);
+}
+
+.aos-init[data-aos="blur-in"] {
+  filter: blur(8px);
+}
+
+/* Revealing active state */
+.aos-init.aos-animate {
+  opacity: 1;
+  transform: translate(0) scale(1);
+  filter: blur(0);
+}
+
+/* Staggered Character Reveal for Hero Marquee */
+@keyframes charReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(60px) skewY(6deg);
+    filter: blur(10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) skewY(0);
+    filter: blur(0);
+  }
+}
+
+.marquee-char {
+  display: inline-block;
+  opacity: 0;
+  animation: charReveal 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity, filter;
+}
+
+.marquee-space {
+  display: inline-block;
+}
+
+/* ===========================
+   PROCESS SECTION
+   =========================== */
+.process-section {
+  position: relative;
+  padding: 50px 32px;
+  background: #000;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .process-section {
+    padding: 70px 64px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .process-section {
+    padding: 100px 80px;
+  }
+}
+
+/* Sticky title custom formatting */
+.process-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(2.25rem, 4vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+}
+
+.process-divider {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.15), transparent);
+  margin: 24px 0;
+}
+
+/* Timeline line behind cards */
+.process-timeline-horizontal-line {
+  position: absolute;
+  top: 68px;
+  /* Aligns with center of icons (top padding 40px + 28px center) */
+  left: 40px;
+  right: 40px;
+  height: 1px;
+  background: linear-gradient(to right,
+      rgba(255, 255, 255, 0.12) 0%,
+      rgba(255, 255, 255, 0.04) 70%,
+      transparent 100%);
+  display: none;
+  z-index: 1;
+}
+
+@media (min-width: 1024px) {
+  .process-timeline-horizontal-line {
+    display: block;
+  }
+}
+
+/* Card design */
+.process-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 24px;
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, border-color, background-color, box-shadow;
+  z-index: 10;
+}
+
+@media (min-width: 640px) {
+  .process-card {
+    padding: 40px 32px;
+  }
+}
+
+.process-card:hover {
+  background: rgba(255, 255, 255, 0.035);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.8),
+    0 0 30px rgba(255, 255, 255, 0.01);
+  transform: translateY(-4px);
+}
+
+/* Absolute hover glowing layer */
+.process-card-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  background: radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.02) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.process-card:hover .process-card-glow {
+  opacity: 1;
+}
+
+/* Icon wrapper and shape */
+.process-icon-wrapper {
+  position: relative;
+  margin-bottom: 0;
+}
+
+.process-card-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.5);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+
+.process-card-icon svg {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.process-card:hover .process-card-icon {
+  background: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.25);
+}
+
+.process-card:hover .process-card-icon svg {
+  transform: rotate(15deg) scale(1.05);
+}
+
+/* Step number layout */
+.process-card-number {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 2.25rem;
+  font-weight: 900;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.03);
+  transition: color 0.5s ease, transform 0.5s ease;
+  user-select: none;
+  position: absolute;
+  right: 24px;
+  top: 24px;
+}
+
+@media (min-width: 640px) {
+  .process-card-number {
+    font-size: 2.5rem;
+    right: 32px;
+    top: 32px;
+  }
+}
+
+.process-card:hover .process-card-number {
+  color: rgba(255, 255, 255, 0.08);
+  transform: scale(1.05);
+}
+
+/* Content formatting */
+.process-card-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  transition: transform 0.5s ease;
+}
+
+.process-card:hover .process-card-title {
+  transform: translateX(4px);
+}
+
+.process-card-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 12px;
+  font-weight: 300;
+  max-width: 520px;
+  transition: color 0.5s ease;
+}
+
+.process-card:hover .process-card-text {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Decorative vertical right marker */
+.process-marker {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  z-index: 2;
+}
+
+@media (min-width: 768px) {
+  .process-marker {
+    right: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .process-marker {
+    right: 32px;
+  }
+}
+
+.process-marker-line {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.15), transparent);
+}
+
+.process-marker-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.2);
+  writing-mode: vertical-rl;
+  text-transform: uppercase;
 }

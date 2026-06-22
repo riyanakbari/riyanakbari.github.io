@@ -37,7 +37,7 @@
     </div>
 
     <!-- HEADER & NAVBAR -->
-    <header class="fixed top-0 left-0 w-full py-6 px-6 md:px-12 flex justify-between items-center z-50">
+    <header class="fixed top-0 left-0 w-full py-6 px-8 sm:px-16 lg:px-20 flex justify-between items-center z-50">
       <!-- Logo Left -->
       <a href="#" class="flex items-center gap-2 group">
         <div
@@ -87,7 +87,7 @@
 
     <!-- HERO SECTION -->
     <main id="home"
-      class="relative flex flex-col justify-end items-center overflow-hidden z-10 w-full h-screen px-6 md:px-12">
+      class="relative flex flex-col justify-end items-center overflow-hidden z-10 w-full h-[75vh] min-h-[560px] lg:h-screen px-6 md:px-12">
 
       <!-- Giant Name Marquee (auto-scrolls right → left, accelerates with scroll) -->
       <div class="absolute top-32 md:top-24 left-0 w-full pointer-events-none select-none overflow-hidden"
@@ -103,7 +103,8 @@
 
       <!-- Centered Cutout Photo (hero.png) overlapping the text -->
       <div
-        class="hidden lg:flex relative z-10 w-full max-w-lg md:max-w-3xl justify-center items-end h-[75vh] md:h-[90vh] select-none">
+        class="hidden lg:flex relative z-10 w-full max-w-lg md:max-w-3xl justify-center items-end h-[75vh] md:h-[90vh] select-none aos-init"
+        data-aos="fade-up" data-aos-delay="200" data-aos-duration="1400">
         <img src="/images/hero.png" alt="Riyan Akbari"
           class="h-full w-auto object-contain filter drop-shadow-[0_20px_50px_rgba(0,0,0,0.9)] transition-transform duration-700 hover:scale-[1.02]" />
       </div>
@@ -111,15 +112,15 @@
       <!-- Hero Content Columns (In Front of Photo) -->
       <div class="absolute top-32 md:top-24 left-0 w-full flex items-start justify-center pointer-events-none"
         style="z-index: 20;">
-        <div class="relative w-full flex justify-center">
+        <div class="relative w-full max-w-[1450px] mx-auto px-8 sm:px-16 lg:px-20">
           <!-- Invisible placeholder to align columns relative to name height -->
           <h1 class="text-outline-name font-black opacity-0 invisible pointer-events-none select-none">RIYAN</h1>
 
           <!-- Left Content Column (Badge & Bio - Anchored below the name box) -->
           <div
-            class="absolute left-6 md:left-12 bottom-0 translate-y-full mt-4 md:mt-8 flex flex-col items-start gap-16 md:gap-20 pointer-events-auto max-w-[220px] sm:max-w-[280px] md:max-w-[320px] lg:max-w-[260px] xl:max-w-[340px] 2xl:max-w-md">
+            class="absolute left-8 sm:left-16 lg:left-20 bottom-0 translate-y-full mt-4 md:mt-8 flex flex-col items-start gap-16 md:gap-20 pointer-events-auto max-w-[320px] sm:max-w-[420px] md:max-w-[500px] lg:max-w-[260px] xl:max-w-[340px] 2xl:max-w-md">
             <!-- Badge UI/UX Designer -->
-            <div class="glass-badge select-none group">
+            <div class="glass-badge select-none group aos-init" data-aos="fade-up" data-aos-delay="400">
               <!-- Glowing White Dot Indicator -->
               <div class="badge-dot-container relative">
                 <div class="badge-pulse-dot animate-pulse"></div>
@@ -130,17 +131,18 @@
             </div>
 
             <!-- Bio Description -->
-            <p
-              class="text-xs sm:text-sm lg:text-xs xl:text-sm 2xl:text-base leading-relaxed text-neutral-400 font-sans tracking-wide">
-              UI/UX Designer and Graphic Design Enthusiast <br> passionate about crafting intuitive, engaging, <br> and
-              user-centered digital experiences.</br>
+            <p class="text-xs sm:text-sm lg:text-xs xl:text-sm 2xl:text-base leading-relaxed text-neutral-400 font-sans tracking-wide aos-init"
+              data-aos="fade-up" data-aos-delay="550">
+              UI/UX Designer and Graphic Design Enthusiast passionate about crafting intuitive, engaging, and
+              user-centered digital experiences.
             </p>
           </div>
 
           <!-- Right Content Column (Button See All Project & Floating Arrow - Anchored below the name box) -->
           <div
-            class="absolute right-6 md:right-12 bottom-0 translate-y-full mt-4 md:mt-8 flex flex-col items-end gap-16 md:gap-32 pointer-events-auto">
-            <a href="#work" class="glass-badge select-none group cursor-pointer" role="button">
+            class="absolute right-8 sm:right-16 lg:right-20 bottom-0 translate-y-full mt-4 md:mt-8 flex flex-col items-end gap-16 md:gap-32 pointer-events-auto">
+            <a href="#work" class="glass-badge select-none group cursor-pointer aos-init" role="button"
+              data-aos="fade-up" data-aos-delay="400">
               <!-- Text -->
               <span class="badge-text text-neutral-300 group-hover:text-white transition-colors duration-300">See All
                 Project</span>
@@ -155,8 +157,8 @@
             </a>
 
             <!-- Floating Arrow Indicator (Aligned below the button) -->
-            <div class="text-neutral-500 hover:text-white transition-colors duration-300 animate-float pr-1"
-              aria-label="Scroll Down">
+            <div class="text-neutral-500 hover:text-white transition-colors duration-300 animate-float pr-1 aos-init"
+              aria-label="Scroll Down" data-aos="fade-up" data-aos-delay="700">
               <svg class="w-6 h-6 stroke-[1.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                 stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
@@ -167,9 +169,9 @@
     </main>
 
     <!-- ABOUT SECTION -->
-    <section id="about" class="about-section">
+    <section id="about" class="about-section scroll-mt-24">
       <!-- Decorative left column -->
-      <div class="about-marker">
+      <div class="about-marker aos-init" data-aos="fade-up">
         <div class="about-marker-line"></div>
         <span class="about-marker-label">ABOUT</span>
         <div class="about-marker-line"></div>
@@ -185,12 +187,143 @@
         </p>
 
         <!-- Bottom row: small text right-aligned -->
-        <div class="about-bottom-row">
+        <div class="about-bottom-row aos-init" data-aos="fade-up" data-aos-delay="200">
           <div class="about-divider-line"></div>
           <p class="about-small-text">
             From research and wireframes to polished interfaces, I focus on simplifying complexity and creating
             experiences that feel effortless to use.
           </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS SECTION -->
+    <section id="process" class="process-section border-t border-white/[0.03] scroll-mt-24">
+      <!-- Decorative right column -->
+      <div class="process-marker aos-init" data-aos="fade-up">
+        <div class="process-marker-line"></div>
+        <span class="process-marker-label">PROCESS</span>
+        <div class="process-marker-line"></div>
+      </div>
+
+      <div class="max-w-[1300px] mx-auto flex flex-col">
+
+        <!-- Header: Title and Description stacked at the top -->
+        <div class="w-full mb-16 flex flex-col items-start">
+          <h2 class="process-title aos-init" data-aos="fade-up">
+            Process Behind Meaningful Products
+          </h2>
+          <div class="process-divider aos-init" data-aos="fade-up" data-aos-delay="100"></div>
+          <p class="text-neutral-400 text-sm sm:text-base leading-relaxed tracking-wide font-light max-w-2xl aos-init"
+            data-aos="fade-up" data-aos-delay="150">
+            A structured, user-centered approach to crafting digital experiences that solve real-world problems and
+            deliver tangible value.
+          </p>
+        </div>
+
+        <!-- Horizontal Grid of 4 Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative w-full">
+          <!-- Timeline Horizontal Line (Desktop only) -->
+          <div class="process-timeline-horizontal-line"></div>
+
+          <!-- Card 1: Discover -->
+          <div class="process-card aos-init" data-aos="fade-up" data-aos-delay="100">
+            <div class="process-card-glow"></div>
+            <span class="process-card-number">01</span>
+
+            <div class="process-icon-wrapper">
+              <div class="process-card-icon">
+                <!-- Compass Icon -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+                </svg>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="process-card-title">Discover</h3>
+              <p class="process-card-text">
+                Conducting user research and competitive analysis to gather foundational insights.
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 2: Define -->
+          <div class="process-card aos-init" data-aos="fade-up" data-aos-delay="200">
+            <div class="process-card-glow"></div>
+            <span class="process-card-number">02</span>
+
+            <div class="process-icon-wrapper">
+              <div class="process-card-icon">
+                <!-- Bullseye / Target Icon -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <circle cx="12" cy="12" r="6"></circle>
+                  <circle cx="12" cy="12" r="2"></circle>
+                </svg>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="process-card-title">Define</h3>
+              <p class="process-card-text">
+                Synthesizing research insights into problem statements, roadmaps, and product architecture.
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 3: Design -->
+          <div class="process-card aos-init" data-aos="fade-up" data-aos-delay="300">
+            <div class="process-card-glow"></div>
+            <span class="process-card-number">03</span>
+
+            <div class="process-icon-wrapper">
+              <div class="process-card-icon">
+                <!-- Layers Icon -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                  <polyline points="2 17 12 22 22 17"></polyline>
+                  <polyline points="2 12 12 17 22 12"></polyline>
+                </svg>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="process-card-title">Design</h3>
+              <p class="process-card-text">
+                Creating wireframes, UI visual systems, and interactive design prototypes.
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 4: Deliver -->
+          <div class="process-card aos-init" data-aos="fade-up" data-aos-delay="400">
+            <div class="process-card-glow"></div>
+            <span class="process-card-number">04</span>
+
+            <div class="process-icon-wrapper">
+              <div class="process-card-icon">
+                <!-- Checkmark Icon -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="process-card-title">Deliver</h3>
+              <p class="process-card-text">
+                Usability testing, iteration, and exporting production-ready developer assets.
+              </p>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
