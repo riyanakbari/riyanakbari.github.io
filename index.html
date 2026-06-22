@@ -24,7 +24,7 @@
   <!-- Mouse Trail Canvas -->
   <canvas id="trail-canvas" class="fixed inset-0 pointer-events-none" style="z-index: 1;"></canvas>
 
-  <div class="min-h-screen bg-black text-white relative overflow-hidden flex flex-col justify-between">
+  <div class="min-h-screen bg-black text-white relative flex flex-col justify-between">
     <!-- Subtle background grid pattern -->
     <div class="absolute inset-0 bg-grid pointer-events-none" style="z-index: 2;"></div>
 
@@ -323,6 +323,29 @@
           </div>
 
         </div>
+    </section>
+
+    <!-- WORK SECTION -->
+    <section id="work" class="work-section scroll-mt-24 border-t border-white/[0.03] relative">
+      <div class="max-w-[1300px] mx-auto flex flex-col relative px-4 sm:px-0">
+
+        <!-- Header: Title and Subtitle -->
+        <div class="w-full mb-16 flex flex-col items-start">
+          <h2 class="work-title aos-init" data-aos="fade-up">
+            Selected Works
+          </h2>
+          <div class="work-divider aos-init" data-aos="fade-up" data-aos-delay="100"></div>
+          <p class="text-neutral-400 text-sm sm:text-base leading-relaxed tracking-wide font-light max-w-2xl aos-init"
+            data-aos="fade-up" data-aos-delay="150">
+            A showcase of digital products crafted with precision, user-centric research, and premium design aesthetics.
+          </p>
+        </div>
+
+        <!-- Stacking Cards Container (Rendered dynamically by JS) -->
+        <div id="work-cards-container" class="flex flex-col gap-16 w-full pb-20">
+          <!-- Dynamically populated from JS array -->
+        </div>
+
       </div>
     </section>
 

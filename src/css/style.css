@@ -841,3 +841,228 @@ body {
   writing-mode: vertical-rl;
   text-transform: uppercase;
 }
+
+/* ===========================
+   WORK SECTION
+   =========================== */
+.work-section {
+  position: relative;
+  padding: 60px 32px;
+  background: #000;
+}
+
+@media (min-width: 768px) {
+  .work-section {
+    padding: 80px 64px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .work-section {
+    padding: 120px 80px;
+  }
+}
+
+.work-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(2.25rem, 4vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+}
+
+.work-divider {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.15), transparent);
+  margin: 24px 0;
+}
+
+/* Stacking Card Wrapper */
+.work-card-wrapper {
+  position: sticky;
+  top: 80px;
+  /* Mobile sticky position */
+  width: 100%;
+  padding-bottom: 24px;
+  /* Spacing so the stack feels layered */
+  transition: transform 0.1s linear, opacity 0.1s linear;
+  will-change: transform, opacity;
+}
+
+@media (min-width: 1024px) {
+  .work-card-wrapper {
+    top: max(100px, calc((100vh - 700px) / 2));
+    /* Vertically centered on desktop viewports */
+    padding-bottom: 40px;
+  }
+}
+
+/* Individual Work Card */
+.work-card {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  width: 100%;
+  min-height: auto;
+}
+
+@media (min-width: 1024px) {
+  .work-card {
+    grid-template-columns: 1.25fr 1fr;
+    /* Image takes slightly more space */
+    gap: 40px;
+    align-items: stretch;
+  }
+}
+
+/* Image container & Zoom effect */
+.work-card-image-box {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+@media (min-width: 640px) {
+  .work-card-image-box {
+    height: 380px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .work-card-image-box {
+    height: auto;
+    min-height: 520px;
+  }
+}
+
+.work-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.work-card-image-box:hover .work-card-img {
+  transform: scale(1.04);
+}
+
+/* Glassmorphic details card */
+.work-card-details {
+  position: relative;
+  background: rgba(10, 10, 10, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 32px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+@media (min-width: 640px) {
+  .work-card-details {
+    padding: 40px 36px;
+  }
+}
+
+.work-card:hover .work-card-details {
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 255, 255, 0.01);
+}
+
+/* Year indicator */
+.work-card-year {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.05em;
+}
+
+/* Card Title */
+.work-card-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-top: 8px;
+}
+
+/* Card Description */
+.work-card-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.45);
+  font-weight: 300;
+  margin-top: 16px;
+}
+
+/* Tag list */
+.work-card-tags-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.work-card-tag-item {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 12px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: color 0.3s ease;
+}
+
+.work-card-tag-item:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Accent Icon in bottom right of details box */
+.work-card-accent-btn {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.4);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 640px) {
+  .work-card-accent-btn {
+    bottom: 36px;
+    right: 36px;
+    width: 42px;
+    height: 42px;
+  }
+}
+
+.work-card:hover .work-card-accent-btn {
+  background: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}

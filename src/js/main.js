@@ -6,6 +6,12 @@ class MouseTrail {
     this.canvas = document.getElementById('trail-canvas');
     if (!this.canvas) return;
 
+    // Disable mouse trail on tablet and below (screen width < 1024px)
+    if (window.innerWidth < 1024) {
+      this.canvas.style.display = 'none';
+      return;
+    }
+
     this.ctx = this.canvas.getContext('2d');
     this.points = [];
     this.mouse = { x: 0, y: 0, active: false };
@@ -454,16 +460,136 @@ class AOSManager {
   }
 }
 
+// Configurable Projects Data Array
+const PROJECTS_DATA = [
+  {
+    year: '2026',
+    title: 'GREW',
+    description: 'A sports community platform designed to help users find playing partners, join matches, book venues, and coordinate games through a seamless and user-centered experience. Developed as an academic UI/UX project.',
+    image: '/images/grew.webp',
+    tags: ['Academic Project', 'Mobile App', 'Sports Community'],
+    link: '#',
+    accentIcon: `<svg class="stroke-[1.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <line x1="17" y1="7" x2="7" y2="17"></line>
+                  <polyline points="17 17 7 17 7 7"></polyline>
+                </svg>`
+  }
+];
+
+// Stacking Cards Scroll Animation Class
+class WorkCardsScroll {
+  constructor() {
+    this.container = document.getElementById('work-cards-container');
+    if (!this.container) return;
+
+    this.renderCards();
+    this.cards = Array.from(this.container.querySelectorAll('.work-card-wrapper'));
+    this.onScroll(); // Set initial scale & opacity
+  }
+
+  renderCards() {
+    this.container.innerHTML = PROJECTS_DATA.map((proj, idx) => {
+      const isFirst = idx === 0;
+      const aosClass = isFirst ? 'aos-init' : '';
+      const aosAttrs = isFirst ? 'data-aos="fade-up" data-aos-delay="400" data-aos-duration="200"' : '';
+
+      return `
+        <div class="work-card-wrapper ${aosClass}" ${aosAttrs}>
+          <div class="work-card">
+            <!-- Left side: image -->
+            <div class="work-card-image-box">
+              <img class="work-card-img" src="${proj.image}" alt="${proj.title}" loading="lazy" />
+            </div>
+            <!-- Right side: details card -->
+            <div class="work-card-details">
+              <div>
+                <div class="work-card-year">(${proj.year})</div>
+                <h3 class="work-card-title">${proj.title}</h3>
+                <p class="work-card-desc">${proj.description}</p>
+              </div>
+              <div class="work-card-tags-list">
+                ${proj.tags.map(tag => `
+                  <div class="work-card-tag-item">
+                    <span>${tag}</span>
+                  </div>
+                `).join('')}
+              </div>
+              <a href="${proj.link}" class="work-card-accent-btn" aria-label="View ${proj.title}">
+                ${proj.accentIcon}
+              </a>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  onScroll() {
+    const totalCards = this.cards.length;
+    if (totalCards === 0) return;
+
+    this.cards.forEach((card, i) => {
+      // The last card stays flat and opaque
+      if (i === totalCards - 1) return;
+
+      // Get calculated sticky position dynamically from CSS
+      const stickyTop = parseFloat(window.getComputedStyle(card).top) || 80;
+
+      const nextCard = this.cards[i + 1];
+      const nextCardRect = nextCard.getBoundingClientRect();
+      const nextCardTop = nextCardRect.top;
+      const nextCardHeight = nextCardRect.height || 500;
+
+      // Overlap range is between next card hitting bottom of current card (stickyTop + height)
+      // and next card hitting top sticky position (stickyTop)
+      const startThreshold = stickyTop + nextCardHeight;
+      const endThreshold = stickyTop;
+
+      const progress = Math.min(
+        1,
+        Math.max(0, (startThreshold - nextCardTop) / (startThreshold - endThreshold))
+      );
+
+      // Fade out completely, scale down to 0.94
+      const scale = 1 - progress * 0.06;
+      const opacity = 1 - progress;
+
+      // Apply transform and opacity directly to the card element inside wrapper
+      const cardInner = card.querySelector('.work-card');
+      if (cardInner) {
+        cardInner.style.transform = `scale(${scale})`;
+        cardInner.style.opacity = opacity;
+        cardInner.style.transformOrigin = 'center top';
+        cardInner.style.transition = 'transform 0.1s ease-out, opacity 0.1s ease-out';
+
+        if (opacity <= 0.02) {
+          cardInner.style.visibility = 'hidden';
+          cardInner.style.pointerEvents = 'none';
+        } else {
+          cardInner.style.visibility = 'visible';
+          cardInner.style.pointerEvents = 'auto';
+        }
+      }
+    });
+  }
+}
+
 // Initialize components on DOM load
 const init = () => {
   new MouseTrail();
   new CustomCursor();
   new MarqueeScroll();
   new NavHighlighter();
-  new AOSManager();
 
   const textReveal = new ScrollTextReveal();
-  new SmoothScroll(() => textReveal.onScroll());
+  const workCards = new WorkCardsScroll();
+  new AOSManager(); // Instantiated after workCards renders its elements in the DOM
+
+  new SmoothScroll(() => {
+    textReveal.onScroll();
+    workCards.onScroll();
+  });
 };
 
 if (document.readyState === 'loading') {
