@@ -157,10 +157,17 @@ body {
 
 /* Glassmorphic card styling with WebKit support */
 .glass-card {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  --card-opacity: 1;
+  background: rgba(255, 255, 255, calc(0.02 * var(--card-opacity)));
+  border: 1px solid rgba(255, 255, 255, calc(0.08 * var(--card-opacity)));
+  backdrop-filter: blur(calc(12px * var(--card-opacity)));
+  -webkit-backdrop-filter: blur(calc(12px * var(--card-opacity)));
+  transition: background 0.1s ease-out, border-color 0.1s ease-out;
+}
+
+.work-card-details > * {
+  opacity: var(--card-opacity, 1) !important;
+  transition: opacity 0.1s ease-out;
 }
 
 .glass-card-hover {

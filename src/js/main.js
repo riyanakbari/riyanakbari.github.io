@@ -582,30 +582,54 @@ class WorkCardsScroll {
       const scale = 1 - progress * 0.06;
       const opacity = 1 - progress;
 
-      // Apply transform and opacity directly to the card element inside wrapper
+      // Find the image box and details box inside the card
+      const imageBox = card.querySelector('.work-card-image-box');
+      const detailsBox = card.querySelector('.work-card-details');
+
+      if (progress === 0) {
+        // Clear styles when active to restore pristine backdrop-filter rendering
+        if (imageBox) {
+          imageBox.style.transform = '';
+          imageBox.style.opacity = '';
+          imageBox.style.transformOrigin = '';
+          imageBox.style.transition = '';
+        }
+        if (detailsBox) {
+          detailsBox.style.transform = '';
+          detailsBox.style.opacity = '';
+          detailsBox.style.transformOrigin = '';
+          detailsBox.style.transition = '';
+          detailsBox.style.removeProperty('--card-opacity');
+        }
+      } else {
+        // Apply transform and opacity ONLY to the image box to prevent Safari backdrop-filter breakdown on details box!
+        if (imageBox) {
+          imageBox.style.transform = `scale(${scale})`;
+          imageBox.style.opacity = opacity;
+          imageBox.style.transformOrigin = 'center top';
+          imageBox.style.transition = 'transform 0.1s ease-out, opacity 0.1s ease-out';
+        }
+
+        // The details box with glassmorphism stays clean of transform/opacity to keep the backdrop-filter active!
+        // Instead, we fade out its contents and background dynamically via CSS variables!
+        if (detailsBox) {
+          detailsBox.style.transform = '';
+          detailsBox.style.opacity = '';
+          detailsBox.style.transformOrigin = '';
+          detailsBox.style.transition = '';
+          detailsBox.style.setProperty('--card-opacity', opacity);
+        }
+      }
+
+      // Hide parent container when fully faded out to prevent pointer events overlapping
       const cardInner = card.querySelector('.work-card');
       if (cardInner) {
-        if (progress === 0) {
-          // Clear styles when active to restore backdrop-filter rendering in WebKit/Safari
-          cardInner.style.transform = '';
-          cardInner.style.opacity = '';
-          cardInner.style.transformOrigin = '';
-          cardInner.style.transition = '';
+        if (opacity <= 0.02) {
+          cardInner.style.visibility = 'hidden';
+          cardInner.style.pointerEvents = 'none';
+        } else {
           cardInner.style.visibility = 'visible';
           cardInner.style.pointerEvents = 'auto';
-        } else {
-          cardInner.style.transform = `scale(${scale})`;
-          cardInner.style.opacity = opacity;
-          cardInner.style.transformOrigin = 'center top';
-          cardInner.style.transition = 'transform 0.1s ease-out, opacity 0.1s ease-out';
-
-          if (opacity <= 0.02) {
-            cardInner.style.visibility = 'hidden';
-            cardInner.style.pointerEvents = 'none';
-          } else {
-            cardInner.style.visibility = 'visible';
-            cardInner.style.pointerEvents = 'auto';
-          }
         }
       }
     });
