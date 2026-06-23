@@ -501,6 +501,19 @@ const PROJECTS_DATA = [
                   <line x1="17" y1="7" x2="7" y2="17"></line>
                   <polyline points="17 17 7 17 7 7"></polyline>
                 </svg>`
+  },
+  {
+    year: '2025',
+    title: 'Nuvelo',
+    description: 'A gaming top-up platform created to deliver a fast and frictionless purchasing experience. Through intuitive navigation and streamlined user flows, Nuvelo makes accessing digital gaming products simple and convenient.',
+    image: '/images/nuvelo.webp',
+    tags: ['Freelance Project', 'Web Platform', 'Gaming Commerce'],
+    link: 'https://nuvelo.id/',
+    accentIcon: `<svg class="w-4 h-4 sm:w-5 h-5 stroke-[1.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <line x1="17" y1="7" x2="7" y2="17"></line>
+                  <polyline points="17 17 7 17 7 7"></polyline>
+                </svg>`
   }
 ];
 
