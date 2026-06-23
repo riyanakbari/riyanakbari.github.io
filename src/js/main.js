@@ -351,11 +351,11 @@ class ScrollTextReveal {
     words.forEach((word, wordIndex) => {
       // Wrap each word in a .word span so line breaks happen between words
       const wordSpan = document.createElement('span');
-      wordSpan.className = 'word';
+      wordSpan.className = 'word inline-block whitespace-nowrap';
 
       for (const char of word) {
         const charSpan = document.createElement('span');
-        charSpan.className = 'char';
+        charSpan.className = 'char inline text-white/15 transition-colors duration-300';
         charSpan.textContent = char;
         wordSpan.appendChild(charSpan);
         this.chars.push(charSpan);
@@ -389,9 +389,11 @@ class ScrollTextReveal {
 
     this.chars.forEach((span, i) => {
       if (i < revealCount) {
-        span.classList.add('revealed');
+        span.classList.add('text-white');
+        span.classList.remove('text-white/15');
       } else {
-        span.classList.remove('revealed');
+        span.classList.remove('text-white');
+        span.classList.add('text-white/15');
       }
     });
   }
@@ -447,6 +449,18 @@ class AOSManager {
 
             el.classList.add('aos-animate');
             observer.unobserve(el);
+
+            // Clean up AOS classes and transitions after the animation is finished
+            // to avoid rendering and composting side-effects (e.g. Safari backdrop-filter breakdown)
+            const onTransitionEnd = (e) => {
+              if (e.propertyName === 'transform' || e.propertyName === 'opacity') {
+                el.classList.remove('aos-init', 'aos-animate');
+                el.style.transitionDelay = '';
+                el.style.transitionDuration = '';
+                el.removeEventListener('transitionend', onTransitionEnd);
+              }
+            };
+            el.addEventListener('transitionend', onTransitionEnd);
           }
         });
       },
@@ -469,7 +483,20 @@ const PROJECTS_DATA = [
     image: '/images/grew.webp',
     tags: ['Academic Project', 'Mobile App', 'Sports Community'],
     link: '#',
-    accentIcon: `<svg class="stroke-[1.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+    accentIcon: `<svg class="w-4 h-4 sm:w-5 h-5 stroke-[1.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <line x1="17" y1="7" x2="7" y2="17"></line>
+                  <polyline points="17 17 7 17 7 7"></polyline>
+                </svg>`
+  },
+  {
+    year: '2025',
+    title: 'Student Service Center',
+    description: 'A web-based administrative service platform developed for Telkom University Surabaya. SSC centralizes various student services into a single access point, making administrative processes more efficient, transparent, and accessible for students.',
+    image: '/images/ssc.webp',
+    tags: ['Institutional Project', 'Web Platform', 'Student Services'],
+    link: 'https://ssc.telu-sby.id/',
+    accentIcon: `<svg class="w-4 h-4 sm:w-5 h-5 stroke-[1.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
                   stroke-linejoin="round">
                   <line x1="17" y1="7" x2="7" y2="17"></line>
                   <polyline points="17 17 7 17 7 7"></polyline>
@@ -495,27 +522,27 @@ class WorkCardsScroll {
       const aosAttrs = isFirst ? 'data-aos="fade-up" data-aos-delay="400" data-aos-duration="200"' : '';
 
       return `
-        <div class="work-card-wrapper ${aosClass}" ${aosAttrs}>
-          <div class="work-card">
+        <div class="work-card-wrapper sticky top-20 w-full pb-6 lg:top-[max(100px,calc((100vh-700px)/2))] lg:pb-10 ${aosClass}" ${aosAttrs} style="z-index: 10;">
+          <div class="work-card group/card grid grid-cols-1 gap-6 w-full min-h-auto lg:grid-cols-[1.25fr_1fr] lg:gap-10 lg:items-stretch">
             <!-- Left side: image -->
-            <div class="work-card-image-box">
-              <img class="work-card-img" src="${proj.image}" alt="${proj.title}" loading="lazy" />
+            <div class="work-card-image-box group/img relative w-full h-[280px] sm:h-[380px] lg:h-auto lg:min-h-[520px] rounded-[24px] overflow-hidden border border-white/[0.05] shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+              <img class="work-card-img w-full h-full object-cover transition-transform duration-800 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/img:scale-[1.04]" src="${proj.image}" alt="${proj.title}" loading="lazy" />
             </div>
             <!-- Right side: details card -->
-            <div class="work-card-details">
+            <div class="work-card-details glass-card glass-card-hover group/details relative rounded-[24px] py-8 px-6 sm:py-10 sm:px-9 flex flex-col justify-between gap-8 z-10">
               <div>
-                <div class="work-card-year">(${proj.year})</div>
-                <h3 class="work-card-title">${proj.title}</h3>
-                <p class="work-card-desc">${proj.description}</p>
+                <div class="work-card-year font-sans text-sm font-medium text-white/40 tracking-wider">(${proj.year})</div>
+                <h3 class="work-card-title font-['Plus_Jakarta_Sans',sans-serif] text-[clamp(1.75rem,3.5vw,2.75rem)] font-extrabold text-white leading-[1.1] tracking-[-0.02em] mt-2">${proj.title}</h3>
+                <p class="work-card-desc font-sans text-[0.9375rem] leading-[1.65] text-white/45 font-light mt-4">${proj.description}</p>
               </div>
-              <div class="work-card-tags-list">
+              <div class="work-card-tags-list flex flex-col w-full">
                 ${proj.tags.map(tag => `
-                  <div class="work-card-tag-item">
+                  <div class="work-card-tag-item font-sans text-sm text-white/50 py-3 border-t border-white/[0.05] flex items-center justify-between transition-colors duration-300 hover:text-white/90">
                     <span>${tag}</span>
                   </div>
                 `).join('')}
               </div>
-              <a href="${proj.link}" class="work-card-accent-btn" aria-label="View ${proj.title}">
+              <a href="${proj.link}" class="work-card-accent-btn absolute bottom-6 right-6 sm:bottom-9 sm:right-9 w-9 h-9 sm:w-[42px] sm:h-[42px] rounded-full bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-white/40 transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/card:bg-white group-hover/card:text-black group-hover/card:border-white group-hover/card:scale-105 group-hover/card:shadow-[0_0_15px_rgba(255,255,255,0.2)]" aria-label="View ${proj.title}">
                 ${proj.accentIcon}
               </a>
             </div>
@@ -558,17 +585,27 @@ class WorkCardsScroll {
       // Apply transform and opacity directly to the card element inside wrapper
       const cardInner = card.querySelector('.work-card');
       if (cardInner) {
-        cardInner.style.transform = `scale(${scale})`;
-        cardInner.style.opacity = opacity;
-        cardInner.style.transformOrigin = 'center top';
-        cardInner.style.transition = 'transform 0.1s ease-out, opacity 0.1s ease-out';
-
-        if (opacity <= 0.02) {
-          cardInner.style.visibility = 'hidden';
-          cardInner.style.pointerEvents = 'none';
-        } else {
+        if (progress === 0) {
+          // Clear styles when active to restore backdrop-filter rendering in WebKit/Safari
+          cardInner.style.transform = '';
+          cardInner.style.opacity = '';
+          cardInner.style.transformOrigin = '';
+          cardInner.style.transition = '';
           cardInner.style.visibility = 'visible';
           cardInner.style.pointerEvents = 'auto';
+        } else {
+          cardInner.style.transform = `scale(${scale})`;
+          cardInner.style.opacity = opacity;
+          cardInner.style.transformOrigin = 'center top';
+          cardInner.style.transition = 'transform 0.1s ease-out, opacity 0.1s ease-out';
+
+          if (opacity <= 0.02) {
+            cardInner.style.visibility = 'hidden';
+            cardInner.style.pointerEvents = 'none';
+          } else {
+            cardInner.style.visibility = 'visible';
+            cardInner.style.pointerEvents = 'auto';
+          }
         }
       }
     });
@@ -597,4 +634,3 @@ if (document.readyState === 'loading') {
 } else {
   init();
 }
-
