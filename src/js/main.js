@@ -542,7 +542,7 @@ class WorkCardsScroll {
                   </div>
                 `).join('')}
               </div>
-              <a href="${proj.link}" class="work-card-accent-btn absolute bottom-6 right-6 sm:bottom-9 sm:right-9 w-9 h-9 sm:w-[42px] sm:h-[42px] rounded-full bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-white/40 transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/card:bg-white group-hover/card:text-black group-hover/card:border-white group-hover/card:scale-105 group-hover/card:shadow-[0_0_15px_rgba(255,255,255,0.2)]" aria-label="View ${proj.title}">
+              <a href="${proj.link}" class="work-card-accent-btn absolute bottom-6 right-6 sm:bottom-9 sm:right-9 w-9 h-9 sm:w-[42px] sm:h-[42px] rounded-full bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-white/40 transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-white hover:text-black hover:border-white hover:scale-105 hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]" aria-label="View ${proj.title}">
                 ${proj.accentIcon}
               </a>
             </div>
