@@ -636,10 +636,10 @@ class WorkCardsScroll {
         // The details box with glassmorphism stays clean of transform/opacity to keep the backdrop-filter active!
         // Instead, we dynamically fade out its background color, border color, blur filters, and children!
         if (detailsBox) {
-          detailsBox.style.transform = '';
-          detailsBox.style.opacity = '';
-          detailsBox.style.transformOrigin = '';
-          detailsBox.style.transition = '';
+          detailsBox.style.transform = `scale(${scale})`;
+          detailsBox.style.opacity = opacity;
+          detailsBox.style.transformOrigin = 'center top';
+          detailsBox.style.transition = 'transform 0.1s ease-out, opacity 0.1s ease-out';
 
           detailsBox.style.backgroundColor = `rgba(255, 255, 255, ${0.02 * opacity})`;
           detailsBox.style.borderColor = `rgba(255, 255, 255, ${0.08 * opacity})`;
