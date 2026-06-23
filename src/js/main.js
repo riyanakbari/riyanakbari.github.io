@@ -519,7 +519,7 @@ class WorkCardsScroll {
     this.container.innerHTML = PROJECTS_DATA.map((proj, idx) => {
       const isFirst = idx === 0;
       const aosClass = isFirst ? 'aos-init' : '';
-      const aosAttrs = isFirst ? 'data-aos="fade-up" data-aos-delay="400" data-aos-duration="200"' : '';
+      const aosAttrs = isFirst ? 'data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000"' : '';
 
       return `
         <div class="work-card-wrapper sticky top-20 w-full pb-6 lg:top-[max(100px,calc((100vh-700px)/2))] lg:pb-10 ${aosClass}" ${aosAttrs} style="z-index: 10;">
