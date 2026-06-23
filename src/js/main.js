@@ -599,7 +599,17 @@ class WorkCardsScroll {
           detailsBox.style.opacity = '';
           detailsBox.style.transformOrigin = '';
           detailsBox.style.transition = '';
-          detailsBox.style.removeProperty('--card-opacity');
+          detailsBox.style.backgroundColor = '';
+          detailsBox.style.borderColor = '';
+          detailsBox.style.backdropFilter = '';
+          detailsBox.style.webkitBackdropFilter = '';
+
+          // Reset children opacity
+          const children = detailsBox.children;
+          for (let c = 0; c < children.length; c++) {
+            children[c].style.opacity = '';
+            children[c].style.transition = '';
+          }
         }
       } else {
         // Apply transform and opacity ONLY to the image box to prevent Safari backdrop-filter breakdown on details box!
@@ -609,15 +619,26 @@ class WorkCardsScroll {
           imageBox.style.transformOrigin = 'center top';
           imageBox.style.transition = 'transform 0.1s ease-out, opacity 0.1s ease-out';
         }
-
+        
         // The details box with glassmorphism stays clean of transform/opacity to keep the backdrop-filter active!
-        // Instead, we fade out its contents and background dynamically via CSS variables!
+        // Instead, we dynamically fade out its background color, border color, blur filters, and children!
         if (detailsBox) {
           detailsBox.style.transform = '';
           detailsBox.style.opacity = '';
           detailsBox.style.transformOrigin = '';
           detailsBox.style.transition = '';
-          detailsBox.style.setProperty('--card-opacity', opacity);
+          
+          detailsBox.style.backgroundColor = `rgba(255, 255, 255, ${0.02 * opacity})`;
+          detailsBox.style.borderColor = `rgba(255, 255, 255, ${0.08 * opacity})`;
+          detailsBox.style.backdropFilter = `blur(${12 * opacity}px)`;
+          detailsBox.style.webkitBackdropFilter = `blur(${12 * opacity}px)`;
+
+          // Fade direct children (excluding absolute buttons if hovered, or just fade all for uniform look)
+          const children = detailsBox.children;
+          for (let c = 0; c < children.length; c++) {
+            children[c].style.opacity = opacity;
+            children[c].style.transition = 'opacity 0.1s ease-out';
+          }
         }
       }
 
