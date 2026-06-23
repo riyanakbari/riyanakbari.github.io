@@ -529,7 +529,7 @@ class WorkCardsScroll {
               <img class="work-card-img w-full h-full object-cover transition-transform duration-800 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/img:scale-[1.04]" src="${proj.image}" alt="${proj.title}" loading="lazy" />
             </div>
             <!-- Right side: details card -->
-            <div class="work-card-details glass-card glass-card-hover group/details relative rounded-[24px] py-8 px-6 sm:py-10 sm:px-9 flex flex-col justify-between gap-8 z-10">
+            <div class="work-card-details glass-card bg-white/20 backdrop-blur-[20px] glass-card-hover group/details relative rounded-[24px] py-8 px-6 sm:py-10 sm:px-9 flex flex-col justify-between gap-8 z-10">
               <div>
                 <div class="work-card-year font-sans text-sm font-medium text-white/40 tracking-wider">(${proj.year})</div>
                 <h3 class="work-card-title font-['Plus_Jakarta_Sans',sans-serif] text-[clamp(1.75rem,3.5vw,2.75rem)] font-extrabold text-white leading-[1.1] tracking-[-0.02em] mt-2">${proj.title}</h3>
@@ -619,7 +619,7 @@ class WorkCardsScroll {
           imageBox.style.transformOrigin = 'center top';
           imageBox.style.transition = 'transform 0.1s ease-out, opacity 0.1s ease-out';
         }
-        
+
         // The details box with glassmorphism stays clean of transform/opacity to keep the backdrop-filter active!
         // Instead, we dynamically fade out its background color, border color, blur filters, and children!
         if (detailsBox) {
@@ -627,7 +627,7 @@ class WorkCardsScroll {
           detailsBox.style.opacity = '';
           detailsBox.style.transformOrigin = '';
           detailsBox.style.transition = '';
-          
+
           detailsBox.style.backgroundColor = `rgba(255, 255, 255, ${0.02 * opacity})`;
           detailsBox.style.borderColor = `rgba(255, 255, 255, ${0.08 * opacity})`;
           detailsBox.style.backdropFilter = `blur(${12 * opacity}px)`;
