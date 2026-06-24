@@ -719,13 +719,13 @@ const SKILLS_ROW_1 = [
 ];
 
 const SKILLS_ROW_2 = [
-  { name: 'Figma', iconName: 'logos:figma' },
-  { name: 'Photoshop', iconName: 'logos:adobe-photoshop' },
-  { name: 'Illustrator', iconName: 'logos:adobe-illustrator' },
-  { name: 'Premiere Pro', iconName: 'logos:adobe-premiere' },
-  { name: 'After Effects', iconName: 'logos:adobe-after-effects' },
-  { name: 'Notion', iconName: 'logos:notion-icon' },
-  { name: 'Blender', iconName: 'logos:blender' },
+  { name: 'Figma', iconName: 'simple-icons:figma' },
+  { name: 'Photoshop', iconName: 'simple-icons:adobephotoshop' },
+  { name: 'Illustrator', iconName: 'simple-icons:adobeillustrator' },
+  { name: 'Premiere Pro', iconName: 'simple-icons:adobepremierepro' },
+  { name: 'After Effects', iconName: 'simple-icons:adobeaftereffects' },
+  { name: 'Notion', iconName: 'simple-icons:notion' },
+  { name: 'Blender', iconName: 'simple-icons:blender' },
 ];
 
 // Experience Cards Renderer Class
