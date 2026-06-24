@@ -12,6 +12,8 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800;900&family=Plus+Jakarta+Sans:wght@800;900&display=swap"
     rel="stylesheet">
+  <!-- Iconify -->
+  <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
   <!-- CSS Stylesheet -->
   <link rel="stylesheet" href="/src/css/style.css" />
 </head>
@@ -65,8 +67,8 @@
         <a href="#work" data-section="work"
           class="nav-link px-4 py-1.5 text-sm font-medium text-neutral-400 hover:text-white transition-colors">Work</a>
         <span class="text-white/10 text-[8px] select-none">•</span>
-        <a href="#skills" data-section="skills"
-          class="nav-link px-4 py-1.5 text-sm font-medium text-neutral-400 hover:text-white transition-colors">Skills</a>
+        <a href="#experience" data-section="experience"
+          class="nav-link px-4 py-1.5 text-sm font-medium text-neutral-400 hover:text-white transition-colors">Experience</a>
         <span class="text-white/10 text-[8px] select-none">•</span>
         <a href="#contact" data-section="contact"
           class="nav-link px-4 py-1.5 text-sm font-medium text-neutral-400 hover:text-white transition-colors">Contact</a>
@@ -427,8 +429,65 @@
         </div>
 
         <!-- Stacking Cards Container (Rendered dynamically by JS) -->
-        <div id="work-cards-container" class="relative flex flex-col gap-16 w-full pb-20 z-10">
+        <div id="work-cards-container" class="relative flex flex-col gap-16 w-full pb-10 z-10">
           <!-- Dynamically populated from JS array -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- JOURNEY & EXPERTISE SECTION -->
+    <section id="experience"
+      class="relative pt-[10px] pb-[60px] px-8 md:pt-4 md:pb-20 md:px-16 lg:pt-4 lg:pb-[120px] lg:px-20 scroll-mt-24 border-t border-white/[0.03]">
+      <div class="max-w-[1300px] mx-auto flex flex-col relative">
+
+        <!-- Header: Title and Subtitle -->
+        <div class="w-full mb-16 flex flex-col gap-6 items-center text-center">
+          <div class="flex flex-col gap-4">
+            <h2
+              class="font-['Plus_Jakarta_Sans',sans-serif] text-[clamp(2.25rem,4vw,3.5rem)] font-extrabold leading-[1.15] tracking-[-0.03em] text-white aos-init"
+              data-aos="fade-up">
+              Journey & Expertise
+            </h2>
+            <p class="text-neutral-400 text-sm sm:text-base leading-relaxed tracking-wide font-light max-w-3xl aos-init"
+              data-aos="fade-up" data-aos-delay="100">
+              Experiences, skills, and knowledge gained through academic, institutional, and freelance projects.
+            </p>
+          </div>
+          <div class="h-[1px] w-full bg-gradient-to-r from-transparent via-white/15 to-transparent my-0 aos-init" data-aos="fade-up"
+            data-aos-delay="150"></div>
+        </div>
+
+        <!-- Experience List -->
+        <div class="flex flex-col" id="experience-container">
+          <!-- Dynamically populated from JS array -->
+        </div>
+
+        <!-- Skills Marquee Section -->
+        <div class="mt-16 lg:mt-20 flex flex-col gap-4 w-full overflow-hidden">
+          <!-- Row 1: Skills - Slide Left -->
+          <div class="relative w-full overflow-hidden py-1">
+            <!-- Fade Overlay Left -->
+            <div class="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none"></div>
+            <!-- Fade Overlay Right -->
+            <div class="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none"></div>
+            
+            <div class="skills-marquee-track flex gap-3 sm:gap-4" id="skills-marquee-1">
+              <!-- Dynamically populated from JS -->
+            </div>
+          </div>
+
+          <!-- Row 2: Tools - Slide Right -->
+          <div class="relative w-full overflow-hidden py-1">
+            <!-- Fade Overlay Left -->
+            <div class="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none"></div>
+            <!-- Fade Overlay Right -->
+            <div class="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none"></div>
+            
+            <div class="skills-marquee-track flex gap-3 sm:gap-4" id="skills-marquee-2">
+              <!-- Dynamically populated from JS -->
+            </div>
+          </div>
         </div>
 
       </div>

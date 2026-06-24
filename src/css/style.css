@@ -175,3 +175,12 @@ body {
     0 20px 40px rgba(0, 0, 0, 0.8),
     0 0 30px rgba(255, 255, 255, 0.01);
 }
+
+/* Skills Marquee Animation */
+.skills-marquee-track {
+  will-change: transform;
+}
+
+.skill-badge {
+  user-select: none;
+}

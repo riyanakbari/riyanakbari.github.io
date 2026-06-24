@@ -670,6 +670,231 @@ class WorkCardsScroll {
   }
 }
 
+// Configurable Experience Data Array
+const EXPERIENCE_DATA = [
+  {
+    position: 'UI/UX Designer',
+    company: 'Pikar Labs',
+    duration: 'Dec 2025 - Present',
+    location: 'Remote'
+  },
+  {
+    position: 'Graphic Designer',
+    company: 'Telkom University Surabaya',
+    duration: 'May 2023 - Present',
+    location: 'Surabaya'
+  },
+  {
+    position: 'UI/UX Designer Intern',
+    company: 'Aptikma Teknologi Indonesia',
+    duration: 'Jun 2025 - Aug 2025',
+    location: 'Malang'
+  },
+  {
+    position: 'Graphic Designer',
+    company: '151 COFFEE',
+    duration: 'Dec 2021 - Aug 2023',
+    location: 'Remote'
+  },
+  {
+    position: 'Graphic Designer Intern',
+    company: 'Restu Guru Promosindo',
+    duration: 'Jan 2021 - May 2021',
+    location: 'Banjarbaru'
+  }
+];
+
+// Configurable Skills Badges Data Array
+const SKILLS_ROW_1 = [
+  { name: 'Graphic Design', iconName: 'mdi:monitor', icon: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>' },
+  { name: 'UX Design', iconName: 'mdi:account-circle', icon: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><circle cx="12" cy="12" r="3"/></svg>' },
+  { name: 'UI Design', iconName: 'mdi:view-grid', icon: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M10 4v16"/></svg>' },
+  { name: 'Prototyping', iconName: 'mdi:layers', icon: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>' },
+  { name: 'Wireframing', iconName: 'mdi:grid', icon: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>' },
+  { name: 'User Research', iconName: 'mdi:magnify', icon: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>' },
+  { name: 'Design Systems', iconName: 'mdi:cube', icon: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>' },
+  { name: 'Interaction Design', iconName: 'mdi:gesture-tap', icon: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>' },
+  { name: 'Visual Design', iconName: 'mdi:palette', icon: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>' },
+  { name: 'Usability Testing', iconName: 'mdi:check-circle', icon: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>' }
+];
+
+const SKILLS_ROW_2 = [
+  { name: 'Figma', iconName: 'logos:figma' },
+  { name: 'Photoshop', iconName: 'logos:adobe-photoshop' },
+  { name: 'Illustrator', iconName: 'logos:adobe-illustrator' },
+  { name: 'Premiere Pro', iconName: 'logos:adobe-premiere' },
+  { name: 'After Effects', iconName: 'logos:adobe-after-effects' },
+  { name: 'Notion', iconName: 'logos:notion-icon' },
+  { name: 'Blender', iconName: 'logos:blender' },
+];
+
+// Experience Cards Renderer Class
+class ExperienceRenderer {
+  constructor() {
+    this.container = document.getElementById('experience-container');
+    if (!this.container) return;
+    this.renderExperience();
+  }
+
+  renderExperience() {
+    this.container.innerHTML = EXPERIENCE_DATA.map((exp, idx) => {
+      const delay = 200 + idx * 100;
+      return `
+        <div class="group relative py-6 xl:py-8 border-b border-white/[0.05] transition-all duration-500 hover:border-white/20 aos-init" data-aos="fade-up" data-aos-delay="${delay}">
+          
+          <!-- Mobile/Tablet/Laptop Layout: 2 columns (Position+Company left, Duration+Location right) -->
+          <div class="flex justify-between items-start gap-4 xl:hidden">
+            <!-- Left Column: Position + Company -->
+            <div class="flex flex-col gap-2 flex-1">
+              <h3 class="font-['Plus_Jakarta_Sans',sans-serif] text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-white leading-tight tracking-tight transition-transform duration-500 group-hover:translate-x-1">${exp.position}</h3>
+              <h4 class="font-sans text-sm sm:text-base md:text-lg lg:text-xl font-normal text-white/60 group-hover:text-white transition-colors duration-500">${exp.company}</h4>
+            </div>
+            
+            <!-- Right Column: Duration + Location -->
+            <div class="flex flex-col gap-2 items-end text-right">
+              <span class="inline-block px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-white/[0.03] border border-white/[0.06] text-xs sm:text-sm font-medium text-white/50 tracking-wide transition-all duration-500 group-hover:bg-white/[0.08] group-hover:border-white/20 group-hover:text-white/80 whitespace-nowrap">${exp.duration}</span>
+              <span class="text-xs sm:text-sm md:text-base lg:text-lg text-white/40 font-light transition-colors duration-500 group-hover:text-white/70">${exp.location}</span>
+            </div>
+          </div>
+          
+          <!-- Desktop Layout: 4 column grid (only on xl and up - 1280px+) -->
+          <div class="hidden xl:grid xl:grid-cols-[360px_360px_180px_1fr] xl:gap-12 items-center">
+            <!-- Position -->
+            <div class="flex items-center gap-3">
+              <div class="flex w-2 h-2 rounded-full bg-white/20 shrink-0 transition-all duration-500 group-hover:bg-white group-hover:w-3 group-hover:h-3 group-hover:shadow-[0_0_12px_rgba(255,255,255,0.6)]"></div>
+              <h3 class="font-['Plus_Jakarta_Sans',sans-serif] text-2xl font-bold text-white leading-tight tracking-tight transition-transform duration-500 group-hover:translate-x-1">${exp.position}</h3>
+            </div>
+            
+            <!-- Company -->
+            <div>
+              <h4 class="font-sans text-lg font-normal text-white/60 group-hover:text-white transition-colors duration-500">${exp.company}</h4>
+            </div>
+            
+            <!-- Location -->
+            <div>
+              <span class="text-base text-white/40 font-light transition-colors duration-500 group-hover:text-white/70">${exp.location}</span>
+            </div>
+            
+            <!-- Duration -->
+            <div class="justify-self-end text-right">
+              <span class="inline-block px-4 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.06] text-sm font-medium text-white/50 tracking-wide transition-all duration-500 group-hover:bg-white/[0.08] group-hover:border-white/20 group-hover:text-white/80 whitespace-nowrap">${exp.duration}</span>
+            </div>
+          </div>
+          
+        </div>
+      `;
+    }).join('');
+  }
+}
+
+// Skills Cards Renderer Class
+class SkillsRenderer {
+  constructor() {
+    this.container = document.getElementById('skills-container');
+    if (!this.container) return;
+    this.renderSkills();
+  }
+
+  renderSkills() {
+    this.container.innerHTML = SKILLS_DATA.map((skill, idx) => {
+      const delay = 100 + idx * 50;
+      return `
+        <div class="group glass-card glass-card-hover bg-white/20 backdrop-blur-[20px] rounded-[16px] p-5 flex flex-col items-center gap-3 text-center transition-all duration-500 hover:-translate-y-1 aos-init" data-aos="fade-up" data-aos-delay="${delay}">
+          <div class="w-12 h-12 flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
+            ${skill.logo}
+          </div>
+          <span class="text-sm font-medium text-white/70 group-hover:text-white transition-colors duration-300">${skill.name}</span>
+        </div>
+      `;
+    }).join('');
+  }
+}
+
+// Skills Badges Renderer Class
+class SkillsBadgesRenderer {
+  constructor() {
+    this.marquee1 = document.getElementById('skills-marquee-1');
+    this.marquee2 = document.getElementById('skills-marquee-2');
+    if (!this.marquee1 || !this.marquee2) return;
+    
+    this.iconCache = {};
+    this.loadIconsAndRender();
+  }
+
+  async loadIconsAndRender() {
+    // Load all icons from Iconify API
+    const iconsToLoad = [...new Set([...SKILLS_ROW_1.map(s => s.iconName), ...SKILLS_ROW_2.map(s => s.iconName)])];
+    
+    try {
+      // Fetch icons from Iconify API
+      const promises = iconsToLoad.map(iconName => 
+        fetch(`https://api.iconify.design/${iconName}.svg?width=20&height=20`)
+          .then(res => res.text())
+          .then(svg => {
+            this.iconCache[iconName] = svg;
+          })
+          .catch(err => {
+            console.warn(`Failed to load icon: ${iconName}`, err);
+            this.iconCache[iconName] = '<div style="width:20px;height:20px"></div>';
+          })
+      );
+      
+      await Promise.all(promises);
+      this.renderMarquees();
+      this.initAnimation();
+    } catch (err) {
+      console.error('Error loading icons:', err);
+      this.renderMarquees();
+      this.initAnimation();
+    }
+  }
+
+  renderMarquees() {
+    const createBadge = (item) => `
+      <div class="skill-badge inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-white/[0.02] border border-white/[0.06] text-sm sm:text-base font-medium text-white/50 transition-all duration-300 hover:bg-white/[0.08] hover:border-white/20 hover:text-white hover:scale-105 whitespace-nowrap shrink-0">
+        <span class="inline-flex items-center justify-center w-5 h-5">${this.iconCache[item.iconName] || ''}</span>
+        <span>${item.name}</span>
+      </div>
+    `;
+
+    // Row 1: Duplicate items 3 times for seamless loop
+    const row1Content = [...SKILLS_ROW_1, ...SKILLS_ROW_1, ...SKILLS_ROW_1].map(createBadge).join('');
+    this.marquee1.innerHTML = row1Content;
+
+    // Row 2: Duplicate items 3 times for seamless loop
+    const row2Content = [...SKILLS_ROW_2, ...SKILLS_ROW_2, ...SKILLS_ROW_2].map(createBadge).join('');
+    this.marquee2.innerHTML = row2Content;
+  }
+
+  initAnimation() {
+    this.position1 = 0;
+    this.position2 = 0;
+    this.speed = 0.5; // pixels per frame
+
+    this.animate();
+  }
+
+  animate() {
+    // Row 1: Slide left
+    this.position1 += this.speed;
+    const width1 = this.marquee1.scrollWidth / 3; // Divide by 3 because we duplicated 3 times
+    if (this.position1 >= width1) {
+      this.position1 -= width1;
+    }
+    this.marquee1.style.transform = `translateX(-${this.position1}px)`;
+
+    // Row 2: Slide right (reverse direction)
+    this.position2 -= this.speed;
+    const width2 = this.marquee2.scrollWidth / 3;
+    if (Math.abs(this.position2) >= width2) {
+      this.position2 += width2;
+    }
+    this.marquee2.style.transform = `translateX(${this.position2}px)`;
+
+    requestAnimationFrame(() => this.animate());
+  }
+}
+
 // Initialize components on DOM load
 const init = () => {
   new MouseTrail();
@@ -679,7 +904,9 @@ const init = () => {
 
   const textReveal = new ScrollTextReveal();
   const workCards = new WorkCardsScroll();
-  new AOSManager(); // Instantiated after workCards renders its elements in the DOM
+  new ExperienceRenderer();
+  new SkillsBadgesRenderer();
+  new AOSManager();
 
   new SmoothScroll(() => {
     textReveal.onScroll();
