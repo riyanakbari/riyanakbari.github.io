@@ -707,15 +707,14 @@ const EXPERIENCE_DATA = [
 // Configurable Skills Badges Data Array
 const SKILLS_ROW_1 = [
   { name: 'Graphic Design', iconName: 'mdi:monitor', icon: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>' },
-  { name: 'UX Design', iconName: 'mdi:account-circle', icon: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><circle cx="12" cy="12" r="3"/></svg>' },
   { name: 'UI Design', iconName: 'mdi:view-grid', icon: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M10 4v16"/></svg>' },
+  { name: 'UX Design', iconName: 'mdi:account-circle', icon: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><circle cx="12" cy="12" r="3"/></svg>' },
   { name: 'Prototyping', iconName: 'mdi:layers', icon: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>' },
   { name: 'Wireframing', iconName: 'mdi:grid', icon: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>' },
   { name: 'User Research', iconName: 'mdi:magnify', icon: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>' },
   { name: 'Design Systems', iconName: 'mdi:cube', icon: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>' },
   { name: 'Interaction Design', iconName: 'mdi:gesture-tap', icon: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>' },
   { name: 'Visual Design', iconName: 'mdi:palette', icon: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>' },
-  { name: 'Usability Testing', iconName: 'mdi:check-circle', icon: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>' }
 ];
 
 const SKILLS_ROW_2 = [
@@ -895,6 +894,63 @@ class SkillsBadgesRenderer {
   }
 }
 
+// Contact Word Rotator Class
+class ContactWordRotator {
+  constructor() {
+    this.wordElement = document.getElementById('rotating-word');
+    if (!this.wordElement) return;
+
+    this.words = ['Design.', 'Create.', 'Evolve.'];
+    this.currentIndex = 0;
+
+    this.wordElement.textContent = this.words[0];
+    this.wordElement.style.transform = 'translateY(0)';
+    this.wordElement.style.opacity = '1';
+
+    setTimeout(() => this.animate(), 3000);
+  }
+
+  animate() {
+    this.wordElement.style.transform = 'translateY(100%)';
+    this.wordElement.style.opacity = '0';
+
+    setTimeout(() => {
+      this.currentIndex = (this.currentIndex + 1) % this.words.length;
+      this.wordElement.textContent = this.words[this.currentIndex];
+      this.wordElement.style.transition = 'none';
+      this.wordElement.style.transform = 'translateY(-100%)';
+      this.wordElement.style.opacity = '1';
+
+      // Force reflow
+      this.wordElement.offsetHeight;
+
+      // Re-enable transition
+      this.wordElement.style.transition = '';
+      this.wordElement.style.transform = 'translateY(0)';
+
+      setTimeout(() => this.animate(), 3000);
+    }, 700);
+  }
+}
+
+// Contact Banner Scroll Animation Class
+class ContactBannerScroll {
+  constructor() {
+    this.banner = document.getElementById('contact-banner');
+    this.section = document.getElementById('contact');
+    if (!this.banner || !this.section) return;
+
+    // Banner is now static, no scroll animation needed
+    // Just ensure it's visible
+    this.banner.style.opacity = '1';
+    this.banner.style.pointerEvents = 'auto';
+  }
+
+  onScroll() {
+    // No scroll animation needed anymore
+  }
+}
+
 // Initialize components on DOM load
 const init = () => {
   new MouseTrail();
@@ -906,11 +962,14 @@ const init = () => {
   const workCards = new WorkCardsScroll();
   new ExperienceRenderer();
   new SkillsBadgesRenderer();
+  new ContactWordRotator();
+  const contactBanner = new ContactBannerScroll();
   new AOSManager();
 
   new SmoothScroll(() => {
     textReveal.onScroll();
     workCards.onScroll();
+    contactBanner.onScroll();
   });
 };
 
